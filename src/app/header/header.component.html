@@ -1,0 +1,12 @@
+<ul ngbNav #nav="ngbNav" class="nav-tabs">
+  <li ngbNavItem>
+    <app-login-modal></app-login-modal>
+  </li>
+  <li ngbNavItem>
+    <button (click)="getUsers()">
+      regis
+    </button>
+  </li>
+</ul>
+<div [ngbNavOutlet]="nav"></div>
+
