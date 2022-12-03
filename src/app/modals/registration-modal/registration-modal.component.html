@@ -1,0 +1,54 @@
+<div class="modal-header">
+		<h4 class="modal-title">Registrarse</h4>
+		<button class="btn-close" (click)="modalRef.close()"></button>
+</div>
+<form novalidate [formGroup]="userForm">
+	<div class="modal-body">
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label>Nombre</label>
+        <input type="text" class="form-control mt-1" formControlName="name" placeholder="Nombre">
+        <app-validator-errors [formControl] = "name"></app-validator-errors>
+      </div>
+      <div class="form-group col-md-6">
+        <label>Apellidos</label>
+        <input type="text" class="form-control mt-1" formControlName="surname" placeholder="Apellidos">
+        <app-validator-errors [formControl] = "surname"></app-validator-errors>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="form-group col-md-6 ">
+        <label>Contraseña</label>
+        <input type="password" class="form-control mt-1" formControlName="password" placeholder="Contraseña">
+        <app-validator-errors [formControl] = "password"></app-validator-errors>
+      </div>
+      <div class="form-group col-md-6">
+        <label>Repetir contraseña</label>
+        <input type="password" class="form-control mt-1" formControlName="passwordRepeated" placeholder="Repetir contraseña">
+        <app-validator-errors [formControl] = "passwordRepeated"></app-validator-errors>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="form-group col-md-6">
+        <label>Teléfono</label>
+        <input type="tel" class="form-control mt-1" formControlName="telephone" placeholder="Teléfono">
+        <app-validator-errors [formControl] = "telephone"></app-validator-errors>
+      </div>
+      <div class="form-group col-md-6">
+        <label>Correo electrónico</label>
+        <input type="tel" class="form-control mt-1" formControlName="email" placeholder="Correo electronico">
+        <app-validator-errors [formControl] = "email"></app-validator-errors>
+      </div>
+    </div>
+
+
+	</div>
+  <div class="modal-footer">
+      <button type="submit" class="btn btn-outline-primary" (click)="onSubmit()">Registrarse</button>
+      <button type="button" class="btn btn-outline-danger" (click)="modalRef.close()">Cancelar</button>
+  </div>
+</form>
+
+
+
+

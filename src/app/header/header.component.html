@@ -1,12 +1,18 @@
 <ul ngbNav #nav="ngbNav" class="nav-tabs">
   <li ngbNavItem>
-    <app-login-modal></app-login-modal>
+    <button class="btn btn-lg btn-outline-primary" (click)="openLoginModal()">
+      Iniciar Session
+    </button>
   </li>
   <li ngbNavItem>
-    <button (click)="getUsers()">
-      regis
+    <button class="btn btn-lg btn-outline-primary" (click)="openRegistrationModal()">
+      Registrarse
     </button>
   </li>
 </ul>
-<div [ngbNavOutlet]="nav"></div>
+
+
+<!-- <button class="btn btn-lg btn-outline-primary" (click)="Regis()">
+        <a style="text-decoration:none" routerLink="/registro">Registrarse</a>
+      </button> -->
 
