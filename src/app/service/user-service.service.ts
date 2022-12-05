@@ -10,15 +10,19 @@ import { User} from 'src/app/models/User';
 })
 export class UserService {
 
-  private readonly url: string = `${environment.baseUrl}/user`;
+  private readonly rootURL: string = `${environment.baseUrl}/user`;
 
   constructor(private http: HttpClient) { }
 
-  getAllUser(): Observable<Object>{
-    return this.http.get(this.url);
+  getAllUser(): Observable<User[]>{
+    return this.http.get<User[]>(this.rootURL);
   }
 
-  saveUser(user: User): Observable<Object> {
-    return this.http.post(this.url,user);
+  saveUser(user: User): Observable<User> {
+    return this.http.post<User>(this.rootURL, user);
+  }
+
+  emailExist(email:string): Observable<boolean> {
+    return this.http.get<boolean>(`${this.rootURL}/checkEmail/${email}`);
   }
 }

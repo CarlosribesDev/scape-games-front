@@ -1,8 +1,8 @@
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from './../service/user-service.service';
 import { Component, OnInit } from '@angular/core';
-import { LoginModalComponent } from '../modals/login-modal/login-modal.component';
-import { RegistrationModalComponent } from '../modals/registration-modal/registration-modal.component';
+import { LoginModalComponent } from '../shared/modals/login-modal/login-modal.component';
+import { RegistrationModalComponent } from '../shared/modals/registration-modal/registration-modal.component';
 
 @Component({
   selector: 'app-header',

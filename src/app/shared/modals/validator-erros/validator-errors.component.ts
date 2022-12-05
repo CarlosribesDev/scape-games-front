@@ -7,7 +7,8 @@ import { AbstractControl, FormControl } from '@angular/forms';
 })
 export class ValidatorErrorsComponent implements OnInit {
 
-  @Input() formControl!:  FormControl;
+  @Input() control!:  FormControl;
+  @Input() submit!: boolean;
 
   constructor() { }
 

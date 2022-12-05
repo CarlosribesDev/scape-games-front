@@ -1,8 +1,0 @@
-<div *ngIf="formControl.invalid && (formControl.dirty || formControl.touched)" class="alert alert-danger">
-  <div *ngIf="formControl.errors?.['required']">
-    Campo requerido.
-  </div>
-  <div *ngIf="formControl.errors?.['minlength']">
-    Debe tener al menos 3 letras.
-  </div>
-</div>
