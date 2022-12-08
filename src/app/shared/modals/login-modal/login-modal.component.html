@@ -3,29 +3,21 @@
 		<button class="btn-close" (click)="modalRef.close()"></button>
 	</div>
 	<div class="modal-body">
-		<form>
-      <div class="form-group">
-        <label>usuario</label>
-        <input
-        id="username"
-        class="form-control"
-        placeholder="username"
-        name="username"
-        >
+		<form [formGroup]="loginForm">
+      <div class="form-group mt-3">
+        <label>Usuario</label>
+        <input class="form-control mt-1" placeholder="Usuario" formControlName="username">
+        <app-validator-errors [control] = "username" [submit]="submit" ></app-validator-errors>
       </div>
-      <div class="form-group">
-        <label>contraseña</label>
-        <input
-        id="password"
-        class="form-control"
-        placeholder="passoword"
-        name="password"
-        >
+      <div class="form-group mt-3">
+        <label>Contraseña</label>
+        <input class="form-control mt-1" placeholder="Contraseña" formControlName="password">
+        <app-validator-errors [control] = "password" [submit]="submit" ></app-validator-errors>
       </div>
 		</form>
 	</div>
 	<div class="modal-footer">
-		<button type="button" class="btn btn-outline-primary" (click)="modalRef.close()">Iniciar</button>
+		<button type="button" class="btn btn-outline-primary" (click)="onSubmit()">Iniciar sesión</button>
     <button type="button" class="btn btn-outline-danger" (click)="modalRef.close()">Cancelar</button>
 </div>
 

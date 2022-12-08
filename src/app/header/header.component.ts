@@ -32,11 +32,11 @@ export class HeaderComponent implements OnInit {
   }
 
   openLoginModal(){
-    this.modalService.open(LoginModalComponent);
+    this.modalService.open(LoginModalComponent,{size: 'sm'});
   }
 
   openRegistrationModal(){
-    this.modalService.open(RegistrationModalComponent);
+    this.modalService.open(RegistrationModalComponent, {size: 'md'});
   }
 
   public Regis(){

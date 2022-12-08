@@ -1,3 +1,4 @@
+import { authInterceptorProviders } from './service/auth.interceptor';
 import { SharedModule } from './shared/shared.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -29,7 +30,7 @@ import { CommonModule } from '@angular/common';
     CommonModule
 
   ],
-  providers: [],
+  providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

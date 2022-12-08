@@ -16,7 +16,14 @@
       Las contraseñas no coinciden.
     </div>
     <div *ngIf="control.hasError('emailAlreadyExists')">
-      Ya existe una cuenta con este email.
+      Ya existe un usuario con este email.
+    </div>
+
+    <div *ngIf="control.hasError('usernameAlreadyExists')">
+      Ya existe un usuario con ese nombre.
+    </div>
+    <div *ngIf="control.hasError('telephoneAlreadyExists')">
+      Ya existe un usuario con ese teléfono.
     </div>
   </div>
 </div>

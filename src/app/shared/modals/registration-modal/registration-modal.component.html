@@ -18,9 +18,21 @@
     </div>
     <div class="row mt-3">
       <div class="form-group col-md-6 ">
+        <label>Nombre de usuario</label>
+        <input type="text" class="form-control mt-1" formControlName="username" placeholder="Nombre de usuario">
+        <app-validator-errors [control] = "username" [submit]="submit"></app-validator-errors>
+      </div>
+      <div class="form-group col-md-6 ">
         <label>Contraseña</label>
         <input type="password" class="form-control mt-1" formControlName="password" placeholder="Contraseña">
         <app-validator-errors [control] = "password" [submit]="submit"></app-validator-errors>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="form-group col-md-6">
+        <label>Correo electrónico</label>
+        <input type="tel" class="form-control mt-1" formControlName="email" placeholder="Correo electronico">
+        <app-validator-errors [control] = "email" [submit]="submit"></app-validator-errors>
       </div>
       <div class="form-group col-md-6">
         <label>Repetir contraseña</label>
@@ -34,14 +46,7 @@
         <input type="tel" class="form-control mt-1" formControlName="telephone" placeholder="Teléfono">
         <app-validator-errors [control] = "telephone" [submit]="submit" ></app-validator-errors>
       </div>
-      <div class="form-group col-md-6">
-        <label>Correo electrónico</label>
-        <input type="tel" class="form-control mt-1" formControlName="email" placeholder="Correo electronico">
-        <app-validator-errors [control] = "email" [submit]="submit"></app-validator-errors>
-      </div>
     </div>
-
-
 	</div>
   <div class="modal-footer">
       <button type="submit" class="btn btn-outline-primary" (click)="onSubmit()">Registrarse</button>

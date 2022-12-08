@@ -53,8 +53,37 @@ export class FormValidators  {
 
       return userService.emailExist(email)
       .pipe(
-        map((result: boolean) =>
-          result ? { emailAlreadyExists: true } : null
+        map((exist: boolean) =>
+          exist ? { emailAlreadyExists: true } : null
+        )
+      );
+    }
+  }
+
+  static usernameExist(userService: UserService): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+
+      const username: string = control.value;
+
+      return userService.usernameExist(username)
+      .pipe(
+        map((exist: boolean) =>
+          exist ? { usernameAlreadyExists: true } : null
+        )
+      );
+    }
+  }
+
+  static telephoneExist(userService: UserService): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+
+      const telephone: string = control.value;
+      console.log("weee");
+
+      return userService.telephoneExist(telephone)
+      .pipe(
+        map((exist: boolean) =>
+          exist ? { telephoneAlreadyExists: true } : null
         )
       );
     }

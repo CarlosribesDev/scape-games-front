@@ -1,3 +1,4 @@
+import { NewUserRequest } from 'src/app/models/NewUserRequest';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
@@ -18,11 +19,19 @@ export class UserService {
     return this.http.get<User[]>(this.rootURL);
   }
 
-  saveUser(user: User): Observable<User> {
-    return this.http.post<User>(this.rootURL, user);
+  saveUser(newUserRequest: NewUserRequest): Observable<User> {
+    return this.http.post<User>(this.rootURL, newUserRequest);
   }
 
-  emailExist(email:string): Observable<boolean> {
-    return this.http.get<boolean>(`${this.rootURL}/checkEmail/${email}`);
+  emailExist(email: string): Observable<boolean> {
+    return this.http.get<boolean>(`${this.rootURL}/check/email/${email}`);
+  }
+
+  usernameExist(username: string): Observable<boolean> {
+    return this.http.get<boolean>(`${this.rootURL}/check/username/${username}`);
+  }
+
+  telephoneExist(telephone: string): Observable<boolean> {
+    return this.http.get<boolean>(`${this.rootURL}/check/telephone/${telephone}`);
   }
 }
