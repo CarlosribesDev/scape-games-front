@@ -11,7 +11,7 @@ import { User} from 'src/app/models/User';
 })
 export class UserService {
 
-  private readonly rootURL: string = `${environment.baseUrl}/user`;
+  private readonly rootURL: string = `api/user`;
 
   constructor(private http: HttpClient) { }
 

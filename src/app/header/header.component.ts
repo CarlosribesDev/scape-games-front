@@ -1,8 +1,10 @@
+import { AuthService } from './../service/auth.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { UserService } from './../service/user-service.service';
+import { UserService } from '../service/user.service';
 import { Component, OnInit } from '@angular/core';
 import { LoginModalComponent } from '../shared/modals/login-modal/login-modal.component';
 import { RegistrationModalComponent } from '../shared/modals/registration-modal/registration-modal.component';
+import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -13,23 +15,25 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private userService: UserService,
+    public authService: AuthService,
     private modalService: NgbModal) { }
 
 
   ngOnInit(): void {
+    this.setLoginSuscription();
   }
 
-  public getUsers(){
+  setLoginSuscription() {
+    this.authService.loginStatus.pipe(debounceTime(500)).subscribe({
+      next:(logStatus: boolean)=> {
+        if(logStatus){
 
-    this.userService.getAllUser()
-    .subscribe((users: Object) => {
 
-      console.log(users);
-
+        }
+      }
     })
-
-
   }
+
 
   openLoginModal(){
     this.modalService.open(LoginModalComponent,{size: 'sm'});
@@ -39,7 +43,15 @@ export class HeaderComponent implements OnInit {
     this.modalService.open(RegistrationModalComponent, {size: 'md'});
   }
 
+  logOut(){
+    this.authService.isLogged()
+    this.authService.logOut();
+  }
+
   public Regis(){
 
   }
 }
+
+
+

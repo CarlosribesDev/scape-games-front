@@ -1,20 +1,16 @@
+import { AdminGuard } from './service/admin.guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CommonModule } from '@angular/common';
-
+import { MainPageComponent } from './pages/main-page/main-page.component';
+import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 
 const routes: Routes = [
- // { path: 'registro', component: UserRegistrationComponent }
+ { path: '', component: MainPageComponent },
+ { path: 'admin', component: AdminPageComponent, canActivate:[AdminGuard] }
 ];
 
 @NgModule({
-  declarations: [],
-
-  imports: [
-    RouterModule.forRoot(routes)
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
 export class AppRotingModule { }

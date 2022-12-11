@@ -1,0 +1,6 @@
+<div class="d-flex">
+    <div *ngFor="let day of days">
+        <button [ngClass]="day.selected ? 'btn-secondary' : 'btn-primary'" class="btn ms-3" (click)="selectDay(day)">{{day.name}}</button>
+    </div>
+</div>
+

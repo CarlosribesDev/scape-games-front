@@ -1,3 +1,4 @@
+import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 import { authInterceptorProviders } from './service/auth.interceptor';
 import { SharedModule } from './shared/shared.module';
 import { NgModule } from '@angular/core';
@@ -5,29 +6,33 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRotingModule } from './app-roting.module';
-
+import { WeekDaysBarComponent } from './pages/admin-page/components/week-days-bar/week-days-bar.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
+import { TooltipModule } from 'ngx-bootstrap/tooltip'
+import { DataPickerComponent } from './pages/admin-page/components/data-picker/data-picker.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     MainPageComponent,
+    AdminPageComponent,
+    WeekDaysBarComponent,
+    DataPickerComponent
+
 
   ],
   imports: [
     BrowserModule,
-    NgbModule,
     HttpClientModule,
     AppRotingModule,
     ReactiveFormsModule,
     SharedModule,
-    CommonModule
+    CommonModule,
+    TooltipModule.forRoot()
 
   ],
   providers: [authInterceptorProviders],

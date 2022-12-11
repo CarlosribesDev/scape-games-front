@@ -1,0 +1,14 @@
+<div class="d-flex">
+    <div class="ms-5">
+        <button class="btn btn-lg btn-primary" (click)="openScheduleModal()">
+            Crear Horario
+        </button>
+        <div *ngFor="let schedule of schedules  ">
+            <strong class="text-white">{{schedule.name}}</strong>
+        </div>
+    </div>
+    <div class="ms-5">
+        <app-week-days-bar></app-week-days-bar>
+        <app-data-picker></app-data-picker>
+    </div>
+</div>

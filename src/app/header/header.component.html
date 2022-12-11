@@ -1,18 +1,42 @@
-<ul ngbNav #nav="ngbNav" class="nav-tabs">
-  <li ngbNavItem>
-    <button class="btn btn-lg btn-outline-primary" (click)="openLoginModal()">
-      Iniciar Session
+<div class="d-flex p-2 flex-row justify-content-center">
+
+  <div class="m-2">
+    <button class="btn btn-lg btn-primary" (click)="null">
+      Inicio
     </button>
-  </li>
-  <li ngbNavItem>
-    <button class="btn btn-lg btn-outline-primary" (click)="openRegistrationModal()">
+  </div>
+  <div class="m-2">
+    <button class="btn btn-lg btn-primary" (click)="null">
+      Contacto
+    </button>
+  </div>
+  <div class="m-2">
+    <button class="btn btn-lg btn-primary" (click)="null">
+      Juegos
+    </button>
+  </div>
+  <div class="m-2">
+    <div *ngIf="authService.isLogged()">
+      <button class="btn btn-lg btn-primary" (click)="logOut()">
+        Cerrar sesión
+      </button>
+    </div>
+    <div *ngIf="!authService.isLogged()">
+      <button class="btn btn-lg btn-primary" (click)="openLoginModal()">
+        Iniciar Sesión
+      </button>
+    </div>
+  </div>
+  <div class="m-2">
+    <button class="btn btn-lg btn-primary" (click)="openRegistrationModal()">
       Registrarse
     </button>
-  </li>
-</ul>
+  </div>
+  <div *ngIf="this.authService.getUserRole() === 'ROLE_ADMIN'" class="m-2">
+    <button class="btn btn-lg btn-secondary">
+      <a routerLink="/admin" routerLinkActive="active">Admin</a>
+    </button>
+  </div>
+</div>
 
-
-<!-- <button class="btn btn-lg btn-outline-primary" (click)="Regis()">
-        <a style="text-decoration:none" routerLink="/registro">Registrarse</a>
-      </button> -->
 

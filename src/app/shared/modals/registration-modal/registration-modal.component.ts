@@ -1,14 +1,14 @@
-import { UserService } from '../../../service/user-service.service';
+import { UserService } from '../../../service/user.service';
 import { NewUserRequest } from 'src/app/models/NewUserRequest';
 import { User } from 'src/app/models/User';
-import { Component, OnInit, TemplateRef, enableProdMode } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators , ValidationErrors } from '@angular/forms';
-import { NgbModal, ModalDismissReasons, NgbModalRef, NgbActiveModal  } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit} from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {  NgbActiveModal  } from '@ng-bootstrap/ng-bootstrap';
 import { take } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormValidators } from 'src/app/shared/utils/form-validators';
-import { BasicModalComponent } from '../basic-modal/basic-modal.component';
 
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -23,9 +23,8 @@ export class RegistrationModalComponent implements OnInit {
 
   constructor(
     public modalRef: NgbActiveModal,
-    private fb: FormBuilder,
+    fb: FormBuilder,
     private userService: UserService,
-    private modalService: NgbModal,
     ) {
 
     this.userForm = fb.group({
@@ -68,14 +67,21 @@ export class RegistrationModalComponent implements OnInit {
     this.userService.saveUser(user).pipe(take(1)).subscribe({
       next: (user: User) => {
         this.modalRef.close()
-        const popUp: NgbModalRef = this.modalService.open(BasicModalComponent);
-        popUp.componentInstance.text = `Usuario con correo ${user.email} registrado correctamente`
+
+        Swal.fire({
+          text: 'Usuario registrado',
+          icon: 'success',
+          confirmButtonText: 'Aceptar'
+        })
 
       },
       error: (error) => {
         this.modalRef.close()
-        const popUp: NgbModalRef = this.modalService.open(BasicModalComponent);
-        popUp.componentInstance.text = `Error al registrar usuario`
+        Swal.fire({
+          text: 'Error al registrar usuario',
+          icon: 'error',
+          confirmButtonText: 'Aceptar'
+        })
       }
 
     })

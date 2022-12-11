@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { TokenResponse } from './../../../models/TokenReponse';
 import { LoginRequest } from './../../../models/LoginRequest';
@@ -5,8 +6,10 @@ import { AuthService } from './../../../service/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { UserService } from 'src/app/service/user-service.service';
+import { UserService } from 'src/app/service/user.service';
 import { User } from 'src/app/models/User';
+import { ThisReceiver } from '@angular/compiler';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login-modal',
@@ -20,7 +23,7 @@ export class LoginModalComponent implements OnInit {
   constructor(
     public modalRef: NgbActiveModal,
     private fb: FormBuilder,
-    private modalService: NgbModal,
+    private router: Router,
     private authService: AuthService
     ) {
 
@@ -35,6 +38,12 @@ export class LoginModalComponent implements OnInit {
 
   ngOnInit(): void {
 
+  }
+
+  close(){
+    console.log("cerrando");
+
+    this.modalRef.close();
   }
 
   onSubmit(): void {
@@ -53,14 +62,31 @@ export class LoginModalComponent implements OnInit {
         this.authService.logIn(tokenResp.token);
         this.authService.getCurrentUser().subscribe({
           next:(user: User) => {
-              console.log(user);
+              this.authService.setUser(user);
+
+              if(this.authService.getUserRole() === "ROLE_ADMIN"){
+                this.router.navigate(['/admin']);
+                this.authService.loginStatus.next(true);
+              }
+              else if(this.authService.getUserRole() === "ROLE_USER"){
+                this.router.navigate(['']);
+                this.authService.loginStatus.next(true);
+              }else{
+                this.authService.logOut();
+              }
+
+              this.modalRef.close();
           }
         })
 
       },
       error: (errorResponse: HttpErrorResponse) => {
-        console.log(errorResponse.error);
 
+        Swal.fire({
+          text: 'Datos invalidos',
+          icon: 'error',
+          confirmButtonText: 'Aceptar'
+        })
 
       }
     })
