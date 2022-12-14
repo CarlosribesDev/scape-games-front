@@ -1,32 +1,31 @@
-import { AfterContentChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Day } from './../../../../models/Day';
+import {  Component,  OnInit } from '@angular/core';
+
 
 @Component({
   selector: 'app-data-picker',
   templateUrl: './data-picker.component.html',
-  styleUrls: ['./data-picker.component.css','./data-picker.component.scss']
+  styleUrls: ['./data-picker.component.css']
 })
-export class DataPickerComponent  implements OnInit,AfterViewInit{
+export class DataPickerComponent  implements OnInit{
 
-  monthNames: string [] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September','October', 'November', 'December'];
-  currentDate = new Date();
-  @ViewChild("dates") datesElement:ElementRef<HTMLDivElement> = {} as ElementRef;
-  @ViewChild("month") monthElement:ElementRef<HTMLDivElement> = {} as ElementRef;
-  @ViewChild("year") yearElement:ElementRef<HTMLDivElement> = {} as ElementRef;
-  monthNumber = this.currentDate.getMonth();
-  currentYear = this.currentDate.getFullYear();
-  currentDay = this.currentDate.getDate();
+  readonly monthNames: string [] = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre','Octubre', 'Noviembre', 'Diciembre'];
+  readonly weekDays: string[] = ['Lun','Mar','Mie','Jue','Vie','Sab','Dom']
+  private currentDate = new Date();
+
+  private monthNumber = this.currentDate.getMonth();
+  private currentYear = this.currentDate.getFullYear();
+  private currentDay = this.currentDate.getDate();
+
+  month: string = this.monthNames[this.monthNumber];
+  year :string = this.currentYear.toString()
+  days: (Day| null)[]= []
+
   constructor() {
-
-  }
-
-  ngAfterViewInit() {
-    this.writeMonth(this.monthNumber);
-    this.monthElement.nativeElement.textContent = this.monthNames[this.monthNumber];
-    this.yearElement.nativeElement.textContent  = this.currentYear.toString()
   }
 
   ngOnInit(): void {
-
+    this.writeMonth();
   }
 
   lastMonth(): void {
@@ -50,89 +49,41 @@ export class DataPickerComponent  implements OnInit,AfterViewInit{
   }
 
   setNewDate(): void {
+    this.days = []
     this.currentDate.setFullYear(this.currentYear,this.monthNumber,this.currentDay);
-    this.monthElement.nativeElement.textContent = this.monthNames[this.monthNumber];
-    this.yearElement.nativeElement.textContent = this.currentYear.toString();
-    this.datesElement.nativeElement.textContent = '';
-    this.writeMonth(this.monthNumber);
+    this.month = this.monthNames[this.monthNumber];
+    this.year = this.currentYear.toString();
+
+    this.writeMonth();
   }
 
-  numberclick(){
+  numberClick(){
     console.log("aaaaaaa");
 
   }
 
-  writeMonth(month:any) {
-
-    for(let i = this.startDay(); i>0;i--){
-      this.datesElement.nativeElement.innerHTML += ` <div class="calendar__date calendar__item calendar__last-days">
-            ${this.getTotalDays(this.monthNumber-1)-(i-1)}
-        </div>`;
+  writeMonth() {
+    for(let i = this.startDay(); i > 0 ; i--){
+      this.days.push(null);
     }
 
-    for(let i=1; i<=this.getTotalDays(month); i++){
-      if(i===this.currentDay) {
-        this.datesElement.nativeElement.innerHTML += ` <div (click)="numberclick()" class="calendar__date calendar__item calendar__today" >${i}</div>`;
-      }else{
-        this.datesElement.nativeElement.innerHTML += ` <div (click)="numberclick()" class="calendar__date calendar__item">${i}</div>`;
+    const totalDays = new Date(this.currentYear, this.monthNumber,0).getDate();
+
+    for(let i = 1; i<= totalDays ; i++){
+      const newDay: Day = {
+        date: new Date(this.currentYear, this.monthNumber, i),
+        schedule: null,
+        isHoliday: false,
+        bookings: []
+
       }
+
+      this.days.push(newDay);
     }
-  }
-
-
-  getTotalDays(month:any) {
-    if(month === -1) month = 11;
-
-    if (month == 0 || month == 2 || month == 4 || month == 6 || month == 7 || month == 9 || month == 11) {
-        return  31;
-
-    } else if (month == 3 || month == 5 || month == 8 || month == 10) {
-        return 30;
-
-    } else {
-
-        return this.isLeap() ? 29:28;
-    }
-  }
-
-  isLeap (): boolean {
-    return ((this.currentYear % 100 !==0) && (this.currentYear % 4 === 0) || (this.currentYear % 400 === 0));
   }
 
   startDay(): number{
       const start = new Date(this.currentYear, this.monthNumber, 1);
-      return ((start.getDay()-1) === -1) ? 6 : start.getDay()-1;
+      return ((start.getDay() - 1) === -1) ? 6 : start.getDay() - 1;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

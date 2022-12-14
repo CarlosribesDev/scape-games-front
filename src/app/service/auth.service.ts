@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
 })
 export class AuthService {
 
-  private readonly rootURL: string = `${environment.baseUrl}/auth`;
+  private readonly rootURL: string = `api/auth`;
   loginStatus: Subject<boolean> = new Subject<boolean>();
 
   constructor(private http:HttpClient, private router: Router) { }

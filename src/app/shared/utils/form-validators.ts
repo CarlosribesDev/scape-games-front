@@ -78,7 +78,6 @@ export class FormValidators  {
     return (control: AbstractControl): Observable<ValidationErrors | null> => {
 
       const telephone: string = control.value;
-      console.log("weee");
 
       return userService.telephoneExist(telephone)
       .pipe(
