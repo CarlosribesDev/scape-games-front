@@ -27,4 +27,8 @@ export class ScheduleService {
     findAll(): Observable<Schedule[]> {
         return this.http.get<Schedule[]>(`${this.rootURL}`);
     }
+
+    delete(id:number): Observable<void> {
+        return this.http.delete<void>(`${this.rootURL}/${id}`)
+    }
 }

@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-import { TokenResponse } from './../../../models/TokenReponse';
-import { LoginRequest } from './../../../models/LoginRequest';
+import { TokenResponse } from '../../../models/request/TokenReponse';
+import { LoginRequest } from '../../../models/request/LoginRequest';
 import { AuthService } from './../../../service/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';

@@ -1,5 +1,5 @@
 import { UserService } from '../../../service/user.service';
-import { NewUserRequest } from 'src/app/models/NewUserRequest';
+import { NewUserRequest } from 'src/app/models/request/NewUserRequest';
 import { User } from 'src/app/models/User';
 import { Component, OnInit} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';

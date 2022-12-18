@@ -2,7 +2,7 @@
     <div class="d-flex">
         <div class="arrow" (click)="lastMonth()">&#9664;</div>
         <div class="calendar_title">{{month}}</div>
-        <div class="calendar_title">{{year}}</div>
+        <div class="calendar_title ms-3">{{year}}</div>
         <div class="arrow" (click)="nextMonth()">&#9654;</div>
     </div>
 
@@ -14,9 +14,9 @@
 
     <div class="d-flex flex-wrap">
         <div *ngFor="let day of days" class="weekDay text-center">
-            <div *ngIf="day" (click)="numberClick()">
+            <button [ngClass]="day === selectedDay ? 'btn-dark':'btn-primary' " class="btn btn-sm mb-1 w-75" *ngIf="day" (click)="selectDay(day)">
                 {{ day.date | date: "d" }}
-            <div>
+            </button>
         </div>
     </div>
 

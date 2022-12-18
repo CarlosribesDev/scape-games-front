@@ -46,6 +46,7 @@ export class ScheduleModalComponent implements OnInit {
 
   onSubmit(): void {
     const schedule: Schedule = {
+      id: null,
       name: this.name.value,
       hours: this.hours
     }
@@ -57,6 +58,7 @@ export class ScheduleModalComponent implements OnInit {
           icon: 'success',
           confirmButtonText: 'Aceptar'
         })
+        this.modalRef.close();
 
       }
     })

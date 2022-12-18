@@ -1,5 +1,6 @@
 import { Day } from './../../../../models/Day';
-import {  Component,  OnInit } from '@angular/core';
+import {  Component,  EventEmitter,  Input,  OnInit, Output } from '@angular/core';
+import { DayService } from 'src/app/service/day.service';
 
 
 @Component({
@@ -9,6 +10,9 @@ import {  Component,  OnInit } from '@angular/core';
 })
 export class DataPickerComponent  implements OnInit{
 
+  @Output() selectedDayEvent: EventEmitter<Day> = new EventEmitter();
+  @Output() daysInMonthEvent: EventEmitter<Day[]> = new EventEmitter();
+
   readonly monthNames: string [] = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre','Octubre', 'Noviembre', 'Diciembre'];
   readonly weekDays: string[] = ['Lun','Mar','Mie','Jue','Vie','Sab','Dom']
   private currentDate = new Date();
@@ -16,12 +20,14 @@ export class DataPickerComponent  implements OnInit{
   private monthNumber = this.currentDate.getMonth();
   private currentYear = this.currentDate.getFullYear();
   private currentDay = this.currentDate.getDate();
+  public selectedDay?: Day;
 
   month: string = this.monthNames[this.monthNumber];
   year :string = this.currentYear.toString()
   days: (Day| null)[]= []
 
-  constructor() {
+  constructor(private dayService: DayService) {
+
   }
 
   ngOnInit(): void {
@@ -57,8 +63,9 @@ export class DataPickerComponent  implements OnInit{
     this.writeMonth();
   }
 
-  numberClick(){
-    console.log("aaaaaaa");
+  selectDay(day: Day){
+    this.selectedDay = day;
+    this.selectedDayEvent.emit(day);
 
   }
 
@@ -67,19 +74,12 @@ export class DataPickerComponent  implements OnInit{
       this.days.push(null);
     }
 
-    const totalDays = new Date(this.currentYear, this.monthNumber,0).getDate();
-
-    for(let i = 1; i<= totalDays ; i++){
-      const newDay: Day = {
-        date: new Date(this.currentYear, this.monthNumber, i),
-        schedule: null,
-        isHoliday: false,
-        bookings: []
-
+    this.dayService.findByDate(this.currentYear, this.monthNumber + 1).subscribe({
+      next:(daysInMonth: Day[]) => {
+        this.days.push(...daysInMonth);
+        this.daysInMonthEvent.emit(daysInMonth);
       }
-
-      this.days.push(newDay);
-    }
+    })
   }
 
   startDay(): number{

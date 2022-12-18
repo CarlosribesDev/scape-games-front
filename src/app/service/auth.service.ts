@@ -1,8 +1,8 @@
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/User';
-import { TokenResponse } from './../models/TokenReponse';
+import { TokenResponse } from '../models/request/TokenReponse';
 import { Observable, Subject } from 'rxjs';
-import { LoginRequest } from './../models/LoginRequest';
+import { LoginRequest } from '../models/request/LoginRequest';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';

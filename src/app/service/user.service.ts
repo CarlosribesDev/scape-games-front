@@ -1,4 +1,4 @@
-import { NewUserRequest } from 'src/app/models/NewUserRequest';
+import { NewUserRequest } from 'src/app/models/request/NewUserRequest';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';

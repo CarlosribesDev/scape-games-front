@@ -1,14 +1,40 @@
 <div class="d-flex">
     <div class="ms-5">
-        <button class="btn btn-lg btn-primary" (click)="openScheduleModal()">
+        <button class="btn btn-lg btn-primary mb-2" (click)="openScheduleModal()">
             Crear Horario
         </button>
-        <div *ngFor="let schedule of schedules  ">
-            <strong class="text-white">{{schedule.name}}</strong>
+        <div *ngIf="schedules.length > 0" class="container text-center">
+            <div *ngFor="let schedule of schedules">
+                <button (click)="selectSchedule(schedule)"  class="btn btn-dark mb-2">{{schedule.name}}</button>
+            </div>
         </div>
     </div>
-    <div class="ms-5">
-        <app-week-days-bar></app-week-days-bar>
-        <app-data-picker></app-data-picker>
+    <div class="ms-3">
+        <button class="btn btn-lg btn-primary mb-2" (click)="updateCalendar()">
+            Aplicar horario
+        </button>
+        <div *ngIf="selectedSchedule" class="container text-center">
+            <h4>Horarios</h4>
+            <div *ngFor="let hour of selectedSchedule.hours">
+                {{hour}}
+            </div>
+            <button class="btn btn-danger mt-2" (click)="deleteSchedule()">Eliminar</button>
+        </div>
+
     </div>
+    <div class="mt-5 ms-2">
+        <app-week-days-bar (daysSelectedEvent)="updateWeekDaysSelected($event)"></app-week-days-bar>
+    </div >
+    <div class="ms-3">
+        <app-data-picker (selectedDayEvent)="onClickDay($event)" (daysInMonthEvent)="updateDaysInMonth($event)"></app-data-picker>
+    </div>
+    <div *ngIf="daySelected" class="container text-center ms-1" style="width: 150px;" >
+        <h4>{{daySelected.date}}</h4>
+        <div *ngFor="let booking of daySelected.bookings">
+            {{booking.hour}}
+        </div>
+        <button class="btn btn-danger mt-2" (click)="deleteSchedule()">Eliminar</button>
+    </div>
+
+
 </div>
