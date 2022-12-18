@@ -1,5 +1,5 @@
-import { WeekDay } from './../../../../models/WeekDay';
-import { Day } from './../../../../models/Day';
+import { Day } from 'src/app/models/Day';
+
 import {  Component,  EventEmitter,  Input,  OnInit, Output } from '@angular/core';
 import { DayService } from 'src/app/service/day.service';
 
@@ -9,15 +9,14 @@ interface WeekDayy {
 }
 
 @Component({
-  selector: 'app-data-picker',
-  templateUrl: './data-picker.component.html',
-  styleUrls: ['./data-picker.component.css']
+  selector: 'app-booking-picker',
+  templateUrl: './booking-picker.component.html',
+  styleUrls: ['./booking-picker.component.css']
 })
-export class DataPickerComponent  implements OnInit{
+export class BookingPickerComponent  implements OnInit{
 
   @Output() selectedDaysEvent: EventEmitter<Day[]> = new EventEmitter();
   @Output() daysInMonthEvent: EventEmitter<Day[]> = new EventEmitter();
-  @Output() focusDayEvent: EventEmitter<Day> = new EventEmitter();
 
   readonly monthNames: string [] = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre','Octubre', 'Noviembre', 'Diciembre'];
   readonly weekDays: WeekDayy[] = [
@@ -140,11 +139,6 @@ export class DataPickerComponent  implements OnInit{
   startDay(): number{
       const start = new Date(this.currentYear, this.monthNumber, 1);
       return ((start.getDay() - 1) === -1) ? 6 : start.getDay() - 1;
-  }
-
-  showDay(day: Day): void {
-      console.log(day);
-      this.focusDayEvent.emit(day);
   }
 
   onCurrentMonth(): boolean{

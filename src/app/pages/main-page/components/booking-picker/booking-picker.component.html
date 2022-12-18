@@ -21,11 +21,7 @@
 
         </div>
         <div *ngFor="let day of days" class="weekDay text-center">
-            <button [ngClass]="this.selectedDays.includes(day) ? 'btn-dark':'btn-primary' "
-            class="btn btn-sm mb-1 w-75"
-            *ngIf="day"
-            (click)="selectDay(day)"
-            (mouseenter)="showDay(day)">
+            <button [ngClass]="this.selectedDays.includes(day) ? 'btn-dark':'btn-primary' " class="btn btn-sm mb-1 w-75" *ngIf="day" (click)="selectDay(day)">
                 {{ day.date | date: "d" }}
             </button>
         </div>

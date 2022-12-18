@@ -1,8 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 .container {
     background: grey;
-    width: 100%;
     border-radius: 20px;
-    padding: 20px 0;
+    padding: 20px;
     border: solid 4px black;
 }

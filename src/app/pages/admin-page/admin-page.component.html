@@ -22,19 +22,21 @@
         </div>
 
     </div>
-    <div class="mt-5 ms-2">
-        <app-week-days-bar (daysSelectedEvent)="updateWeekDaysSelected($event)"></app-week-days-bar>
-    </div >
     <div class="ms-3">
-        <app-data-picker (selectedDayEvent)="onClickDay($event)" (daysInMonthEvent)="updateDaysInMonth($event)"></app-data-picker>
+        <app-data-picker (selectedDaysEvent)="onUpdateDays($event)" (focusDayEvent)="setFocusDay($event)"></app-data-picker>
     </div>
-    <div *ngIf="daySelected" class="container text-center ms-1" style="width: 150px;" >
-        <h4>{{daySelected.date}}</h4>
-        <div *ngFor="let booking of daySelected.bookings">
-            {{booking.hour}}
+    <div class="ms-3">
+        <div *ngIf="focusDay" class="container text-center" >
+            <h4>{{focusDay.date}}</h4>
+            <div *ngFor="let booking of focusDay.bookings">
+                {{booking.hour}}
+            </div>
+            <div *ngIf="focusDay.bookings.length === 0" class="text-danger">
+                Sin horarios
+            </div>
         </div>
-        <button class="btn btn-danger mt-2" (click)="deleteSchedule()">Eliminar</button>
     </div>
+
 
 
 </div>

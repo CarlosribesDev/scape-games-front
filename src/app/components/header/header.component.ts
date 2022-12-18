@@ -1,9 +1,9 @@
-import { AuthService } from './../service/auth.service';
+import { AuthService } from '../../service/auth.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { UserService } from '../service/user.service';
+import { UserService } from '../../service/user.service';
 import { Component, OnInit } from '@angular/core';
-import { LoginModalComponent } from '../shared/modals/login-modal/login-modal.component';
-import { RegistrationModalComponent } from '../shared/modals/registration-modal/registration-modal.component';
+import { LoginModalComponent } from '../../shared/modals/login-modal/login-modal.component';
+import { RegistrationModalComponent } from '../../shared/modals/registration-modal/registration-modal.component';
 import { debounceTime } from 'rxjs';
 
 @Component({

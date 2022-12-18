@@ -18,8 +18,9 @@ export class AdminPageComponent implements OnInit {
   schedules : Schedule[] = [];
   selectedSchedule?: Schedule;
   weekDaysSelected: number[] = [];
-  daySelected?: Day;
-  daysInMonth: Day[] = [];
+  focusDay?: Day;
+  daysSelected: Day[] = [];
+
 
   constructor(
     private authService:AuthService,
@@ -66,22 +67,16 @@ export class AdminPageComponent implements OnInit {
     this.weekDaysSelected = daysList;
   }
 
-  updateDaysInMonth(days: Day[]){
-    this.daysInMonth = days;
-    console.log(this.daysInMonth );
-
+  setFocusDay(day: Day){
+    this.focusDay = day;
   }
 
   updateCalendar(){
-    if(!this.selectedSchedule || this.weekDaysSelected.length === 0){
+    if(!this.selectedSchedule || this.daysSelected.length === 0){
       return
     }
 
-
-    const daysToUpdate: Day[] = this.daysInMonth.filter(day => this.weekDaysSelected.includes(new Date(day.date).getDay()))
-
-
-    daysToUpdate.forEach(day => {
+    this.daysSelected.forEach(day => {
       const bookings: Booking[] = this.selectedSchedule!.hours.map(hour => {
         return {
           id:null,
@@ -95,9 +90,9 @@ export class AdminPageComponent implements OnInit {
       day.bookings = bookings;
     })
 
-    this.dayService.updateAll(daysToUpdate).subscribe({
+    this.dayService.updateAll(this.daysSelected).subscribe({
       next:(days: Day[])=>{
-        console.log(days);
+
 
       },
       error:(e)=>{
@@ -106,9 +101,9 @@ export class AdminPageComponent implements OnInit {
       }
     })
   }
-  onClickDay(day: Day){
-    console.log(day.date);
-    this.daySelected = day;
+  onUpdateDays(days: Day[]){
+    this.daysSelected = days;
+    console.log(days);
 
   }
   openScheduleModal(){
