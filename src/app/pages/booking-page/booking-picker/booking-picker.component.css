@@ -1,10 +1,11 @@
 
   .calendar {
-    background: grey;
+    background: black;
+    color: white;
     width: 100%;
     max-width: 350px;
-    border-radius: 20px;
-    padding: 20px 0;
+    /* border-radius: 20px; */
+    padding: 20px;
     border: solid 4px black;
   }
 

@@ -1,4 +1,5 @@
-import { BookingPickerComponent } from './pages/main-page/components/booking-picker/booking-picker.component';
+import { GameCardComponent } from './pages/main-page/components/game-card/game-card.component';
+import { BookingPickerComponent } from './pages/booking-page/booking-picker/booking-picker.component';
 import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 import { authInterceptorProviders } from './service/auth.interceptor';
 import { SharedModule } from './shared/shared.module';
@@ -14,6 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TooltipModule } from 'ngx-bootstrap/tooltip'
 import { DataPickerComponent } from './pages/admin-page/components/data-picker/data-picker.component';
+import { BookingPageComponent } from './pages/booking-page/booking-page.component';
 
 @NgModule({
   declarations: [
@@ -21,9 +23,12 @@ import { DataPickerComponent } from './pages/admin-page/components/data-picker/d
     HeaderComponent,
     MainPageComponent,
     AdminPageComponent,
+    BookingPageComponent,
     WeekDaysBarComponent,
     DataPickerComponent,
-    BookingPickerComponent
+    BookingPickerComponent,
+    BookingPickerComponent,
+    GameCardComponent
 
 
   ],

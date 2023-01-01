@@ -1,0 +1,36 @@
+<div class="d-flex align-items-center flex-sm-column {{bgClass}}" >
+  <div class="text-white">
+    <h2>{{game?.name}}</h2>
+    <p class="m-3">{{game?.description}}</p>
+    <p>Duración : {{game?.duration}} min</p>
+          <p>Precio : {{game?.price}} €</p>
+  </div>
+
+  <div *ngIf="authService.isLogged()" class="d-flex">
+
+    <app-booking-picker (selectedDayEvent)="selectDay($event)"></app-booking-picker>
+    <div class="mt-3">
+      <div *ngIf="selectedDay" class="container text-center ms-3" >
+          <h4>{{selectedDay.date}}</h4>
+          <div class="mb-2" *ngFor="let booking of selectedDay.bookings">
+              <div>{{booking.hour}}</div>
+              <button class="btn btn-primary">Reservar</button>
+          </div>
+          <div *ngIf="!selectedDay.bookings || selectedDay.bookings.length === 0" class="text-danger">
+              Sin horarios
+          </div>
+
+      </div>
+      <div *ngIf="!selectedDay" class="container text-center ms-3" >
+        <div class="text-danger">
+            Selecciona una fecha
+        </div>
+    </div>
+
+    </div>
+  </div>
+  <div *ngIf="!authService.isLogged()">
+    <p class="text-white">Inicia sessión para poder reservar</p>
+  </div>
+</div>
+

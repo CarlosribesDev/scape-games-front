@@ -1,1 +1,8 @@
-<p>main-page works!</p>
+<div class="d-flex justify-content-evenly">
+  <!-- <ng-container *ngFor="let card of gameCards">
+    <app-game-card [image]="card.imageSrc" [tittle]="card.tittle" [gamee]="card.game"></app-game-card>
+  </ng-container> -->
+  <ng-container *ngFor="let game of games">
+    <app-game-card [game]="game"></app-game-card>
+  </ng-container>
+</div>

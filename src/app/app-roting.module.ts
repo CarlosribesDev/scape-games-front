@@ -1,3 +1,4 @@
+import { BookingPageComponent } from './pages/booking-page/booking-page.component';
 import { AdminGuard } from './service/admin.guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -8,7 +9,8 @@ import { ContactPageComponent } from './pages/contact-page/contact-page.componen
 const routes: Routes = [
  { path: '', component: MainPageComponent },
  { path: 'admin', component: AdminPageComponent, canActivate:[AdminGuard] },
- { path: 'contact', component: ContactPageComponent }
+ { path: 'contact', component: ContactPageComponent },
+ { path: 'booking/:id', component: BookingPageComponent }
 ];
 
 @NgModule({

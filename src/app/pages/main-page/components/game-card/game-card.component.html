@@ -1,0 +1,8 @@
+<div class="card bg-dark text-white" style="width: 22rem;">
+  <img src={{imageSrc}} class="card-img-top" alt="haunted-house" style="height: 200px;">
+  <div class="card-body">
+    <h5 class="card-title">{{game.name}}</h5>
+    <p class="card-text" >{{game.description}}</p>
+    <a [routerLink]="['/booking',game.id]" class="btn btn-primary">Reservar</a>
+  </div>
+</div>

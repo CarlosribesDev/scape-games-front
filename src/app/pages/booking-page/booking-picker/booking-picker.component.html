@@ -12,7 +12,7 @@
 
     <div class="d-flex flex-wrap mt-2">
         <div *ngFor="let weekDay of weekDays" class="weekDay text-center">
-           <button class="btn btn-sm btn-info mb-2 w-75" (click)="selectWeekDay(weekDay.value)"> {{weekDay.text}} </button>
+           <p class="mb-2 w-75"> {{weekDay.text}} </p>
         </div>
     </div>
 
@@ -21,8 +21,9 @@
 
         </div>
         <div *ngFor="let day of days" class="weekDay text-center">
-            <button [ngClass]="this.selectedDays.includes(day) ? 'btn-dark':'btn-primary' " class="btn btn-sm mb-1 w-75" *ngIf="day" (click)="selectDay(day)">
-                {{ day.date | date: "d" }}
+            <button [ngClass]="this.selectedDay === day ? 'btn-dark':'btn-primary' " class="btn btn-sm mb-1 w-75" *ngIf="day" (click)="selectDay(day)">
+               {{ day.date | date: "d" }}
+
             </button>
         </div>
     </div>

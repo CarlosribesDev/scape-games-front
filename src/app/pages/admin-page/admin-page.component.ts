@@ -8,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 import { ScheduleModalComponent } from 'src/app/shared/modals/schedule-modal/schedule-modal.component';
 import { ChangeDetectorRef } from '@angular/core';
 import { Day } from 'src/app/models/Day';
+import Swal from 'sweetalert2';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-admin-page',
@@ -21,6 +23,7 @@ export class AdminPageComponent implements OnInit {
   focusDay?: Day;
   daysSelected: Day[] = [];
 
+  resetEvent: Subject<void> = new Subject<void>();
 
   constructor(
     private authService:AuthService,
@@ -73,7 +76,7 @@ export class AdminPageComponent implements OnInit {
 
   updateCalendar(){
     if(!this.selectedSchedule || this.daysSelected.length === 0){
-      return
+      return;
     }
 
     this.daysSelected.forEach(day => {
@@ -91,20 +94,26 @@ export class AdminPageComponent implements OnInit {
     })
 
     this.dayService.updateAll(this.daysSelected).subscribe({
-      next:(days: Day[])=>{
-
-
+      next:(days: Day[])=> {
+        this.resetEvent.next();
+        Swal.fire({
+          text: 'Calendario Actualizado',
+          icon: 'success',
+          confirmButtonText: 'Aceptar'
+        })
       },
       error:(e)=>{
-        console.log(e);
+        Swal.fire({
+          text: 'Error al actualizar horario',
+          icon: 'success',
+          confirmButtonText: 'Aceptar'
+        })
 
       }
     })
   }
   onUpdateDays(days: Day[]){
     this.daysSelected = days;
-    console.log(days);
-
   }
   openScheduleModal(){
     this.modalService.open(ScheduleModalComponent ,{size: 'sm'}).hidden.subscribe({

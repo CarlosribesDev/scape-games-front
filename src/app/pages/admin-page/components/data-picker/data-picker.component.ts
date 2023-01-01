@@ -1,3 +1,4 @@
+import { Observable, Subscription } from 'rxjs';
 import { WeekDay } from './../../../../models/WeekDay';
 import { Day } from './../../../../models/Day';
 import {  Component,  EventEmitter,  Input,  OnInit, Output } from '@angular/core';
@@ -16,8 +17,9 @@ interface WeekDayy {
 export class DataPickerComponent  implements OnInit{
 
   @Output() selectedDaysEvent: EventEmitter<Day[]> = new EventEmitter();
-  @Output() daysInMonthEvent: EventEmitter<Day[]> = new EventEmitter();
   @Output() focusDayEvent: EventEmitter<Day> = new EventEmitter();
+
+  @Input() resetEvent: Observable<void> = new Observable<void>;
 
   readonly monthNames: string [] = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre','Octubre', 'Noviembre', 'Diciembre'];
   readonly weekDays: WeekDayy[] = [
@@ -68,6 +70,13 @@ export class DataPickerComponent  implements OnInit{
 
   ngOnInit(): void {
     this.writeMonth();
+    this.resetEvent.subscribe({
+      next:()=>{
+        this.selectedDays = []
+        this.selectedDaysEvent.emit(this.selectedDays);
+
+      }
+    })
   }
 
   lastMonth(): void {
@@ -132,7 +141,6 @@ export class DataPickerComponent  implements OnInit{
     this.dayService.findByDate(this.currentYear, this.monthNumber + 1).subscribe({
       next:(daysInMonth: Day[]) => {
         this.days.push(...daysInMonth);
-        this.daysInMonthEvent.emit(daysInMonth);
       }
     })
   }
@@ -143,7 +151,6 @@ export class DataPickerComponent  implements OnInit{
   }
 
   showDay(day: Day): void {
-      console.log(day);
       this.focusDayEvent.emit(day);
   }
 

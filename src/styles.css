@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 .container {
-    background: grey;
+    /* background: grey; */
+    background: black;
+    color: white;
     border-radius: 20px;
     padding: 20px;
     border: solid 4px black;

@@ -15,8 +15,8 @@ interface WeekDayy {
 })
 export class BookingPickerComponent  implements OnInit{
 
-  @Output() selectedDaysEvent: EventEmitter<Day[]> = new EventEmitter();
-  @Output() daysInMonthEvent: EventEmitter<Day[]> = new EventEmitter();
+  @Output() selectedDayEvent: EventEmitter<Day> = new EventEmitter();
+
 
   readonly monthNames: string [] = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre','Octubre', 'Noviembre', 'Diciembre'];
   readonly weekDays: WeekDayy[] = [
@@ -54,7 +54,7 @@ export class BookingPickerComponent  implements OnInit{
   private monthNumber: number = this.currentDate.getMonth();
   private currentYear: number = this.currentDate.getFullYear();
   private currentDay: number = this.currentDate.getDate();
-  selectedDays: Day[] = []
+  selectedDay: Day | undefined;
 
   month: string = this.monthNames[this.monthNumber];
   year :string = this.currentYear.toString()
@@ -100,28 +100,12 @@ export class BookingPickerComponent  implements OnInit{
   }
 
   selectDay(day: Day){
-    if(this.selectedDays.includes(day)){
-      this.selectedDays = this.selectedDays.filter(d => d !== day)
-    }
-    else{
-      this.selectedDays.push(day)
-    }
+    this.selectedDay = day
 
-    this.selectedDaysEvent.emit(this.selectedDays);
+    this.selectedDayEvent.emit(day);
   }
 
-  selectWeekDay(num: number): void{
 
-    const daysInWeekDay: Day[] = this.days.filter(d => new Date(d.date).getDay() === num)
-
-    daysInWeekDay.forEach(day => {
-      if(!this.selectedDays.includes(day)){
-        this.selectedDays.push(day)
-      }
-    })
-
-    this.selectedDaysEvent.emit(this.selectedDays);
-  }
 
   writeMonth() {
     for(let i = this.startDay(); i > 0 ; i--){
@@ -131,7 +115,6 @@ export class BookingPickerComponent  implements OnInit{
     this.dayService.findByDate(this.currentYear, this.monthNumber + 1).subscribe({
       next:(daysInMonth: Day[]) => {
         this.days.push(...daysInMonth);
-        this.daysInMonthEvent.emit(daysInMonth);
       }
     })
   }
