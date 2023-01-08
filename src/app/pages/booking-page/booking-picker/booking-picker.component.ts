@@ -1,3 +1,5 @@
+import { Subscription, Observable } from 'rxjs';
+import { Booking } from './../../../models/Booking';
 import { Day } from 'src/app/models/Day';
 
 import {  Component,  EventEmitter,  Input,  OnInit, Output } from '@angular/core';
@@ -16,6 +18,7 @@ interface WeekDayy {
 export class BookingPickerComponent  implements OnInit{
 
   @Output() selectedDayEvent: EventEmitter<Day> = new EventEmitter();
+  @Input() update: Observable<void> = new Observable<void>;
 
 
   readonly monthNames: string [] = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre','Octubre', 'Noviembre', 'Diciembre'];
@@ -67,7 +70,15 @@ export class BookingPickerComponent  implements OnInit{
 
   ngOnInit(): void {
     this.writeMonth();
+    this.update.subscribe({
+      next:()=>{
+        console.log("actualizadoooo");
+
+        setTimeout(()=> this.writeMonth(), 200);
+      }
+    })
   }
+
 
   lastMonth(): void {
     if(this.monthNumber !== 0){
@@ -105,9 +116,33 @@ export class BookingPickerComponent  implements OnInit{
     this.selectedDayEvent.emit(day);
   }
 
+  getButtonClass(day : Day): string{
+    if(!day.bookings){
+      return "btn-danger";
+    }
+
+    const busyBookings = day.bookings.filter(booking => booking.userId);
+
+    if(day.busy){
+      return "btn-danger";
+    }
+    else if(busyBookings.length === day.bookings.length){
+      return "btn-danger";
+
+    }
+    else if(busyBookings.length > 0){
+      return "btn-warning";
+    }
+
+    return "btn-success";
+
+  }
+
 
 
   writeMonth() {
+    this.prevDays = []
+    this.days = []
     for(let i = this.startDay(); i > 0 ; i--){
       this.prevDays.push(null);
     }
@@ -115,8 +150,12 @@ export class BookingPickerComponent  implements OnInit{
     this.dayService.findByDate(this.currentYear, this.monthNumber + 1).subscribe({
       next:(daysInMonth: Day[]) => {
         this.days.push(...daysInMonth);
+        console.log(this.days);
       }
     })
+
+
+
   }
 
   startDay(): number{

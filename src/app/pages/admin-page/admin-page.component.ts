@@ -82,11 +82,12 @@ export class AdminPageComponent implements OnInit {
     this.daysSelected.forEach(day => {
       const bookings: Booking[] = this.selectedSchedule!.hours.map(hour => {
         return {
-          id:null,
           hour:hour,
-          day_id:day.id,
+
+          date:day.date,
+          dayId:day.id,
           isBusy:false,
-          user_id:null
+
         }
       })
 

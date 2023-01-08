@@ -1,3 +1,4 @@
+import { BookingModalComponent } from './booking-modal/booking-modal.component';
 import { ScheduleModalComponent } from './schedule-modal/schedule-modal.component';
 import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
@@ -13,7 +14,8 @@ import { NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
     LoginModalComponent,
     RegistrationModalComponent,
     ValidatorErrorsComponent,
-    ScheduleModalComponent
+    ScheduleModalComponent,
+    BookingModalComponent
 
   ],
   imports: [

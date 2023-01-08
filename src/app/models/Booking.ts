@@ -1,9 +1,10 @@
-import { Day } from "./Day";
+import { Game } from "./Game";
 
 export interface Booking {
-  id:number | null;
+  id?:number ;
   hour: string;
-  day_id: number;
-  isBusy: boolean;
-  user_id: number | null;
+  dayId: number;
+  date: Date;
+  game?: Game;
+  userId?: number;
 }

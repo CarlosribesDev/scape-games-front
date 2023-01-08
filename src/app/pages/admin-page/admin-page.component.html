@@ -27,7 +27,7 @@
     </div>
     <div class="ms-3">
         <div *ngIf="focusDay" class="container text-center" >
-            <h4>{{focusDay.date}}</h4>
+            <h4>{{focusDay.date | date: 'dd/MM/yyyy'}} </h4>
             <div *ngFor="let booking of focusDay.bookings">
                 {{booking.hour}}
             </div>

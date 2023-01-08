@@ -5,4 +5,5 @@ export interface Day {
     id:number;
     date: Date;
     bookings: Booking[];
+    busy: boolean;
 }
