@@ -72,8 +72,6 @@ export class BookingPickerComponent  implements OnInit{
     this.writeMonth();
     this.update.subscribe({
       next:()=>{
-        console.log("actualizadoooo");
-
         setTimeout(()=> this.writeMonth(), 200);
       }
     })
@@ -138,8 +136,6 @@ export class BookingPickerComponent  implements OnInit{
 
   }
 
-
-
   writeMonth() {
     this.prevDays = []
     this.days = []
@@ -150,12 +146,8 @@ export class BookingPickerComponent  implements OnInit{
     this.dayService.findByDate(this.currentYear, this.monthNumber + 1).subscribe({
       next:(daysInMonth: Day[]) => {
         this.days.push(...daysInMonth);
-        console.log(this.days);
       }
     })
-
-
-
   }
 
   startDay(): number{

@@ -7,4 +7,5 @@ export interface Booking {
   date: Date;
   game?: Game;
   userId?: number;
+  userFullName?: string;
 }

@@ -1,3 +1,4 @@
+import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { GameCardComponent } from './pages/main-page/components/game-card/game-card.component';
 import { BookingPickerComponent } from './pages/booking-page/booking-picker/booking-picker.component';
 import { AdminPageComponent } from './pages/admin-page/admin-page.component';
@@ -28,7 +29,8 @@ import { BookingPageComponent } from './pages/booking-page/booking-page.componen
     DataPickerComponent,
     BookingPickerComponent,
     BookingPickerComponent,
-    GameCardComponent
+    GameCardComponent,
+    ProfilePageComponent
 
 
   ],

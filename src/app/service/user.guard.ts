@@ -6,7 +6,7 @@ import { AuthService } from './auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class NormalGuard implements CanActivate {
+export class UserGuard implements CanActivate {
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -14,7 +14,7 @@ export class NormalGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    if(this.authService.isLogged() && this.authService.getUserRole() === 'USER'){
+    if(this.authService.isLogged()){
       return true;
     }
 

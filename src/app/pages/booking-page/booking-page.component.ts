@@ -2,12 +2,11 @@ import { Booking } from './../../models/Booking';
 import { AuthService } from './../../service/auth.service';
 import { GameService } from './../../service/game.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Observable, Subscription, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Day } from 'src/app/models/Day';
 import { Game } from 'src/app/models/Game';
-import { flip } from '@popperjs/core';
 import { BookingModalComponent } from 'src/app/shared/modals/booking-modal/booking-modal.component';
 
 @Component({
@@ -30,7 +29,8 @@ export class BookingPageComponent implements OnInit,OnDestroy {
     private route: ActivatedRoute,
     private gameService:GameService,
     public authService: AuthService,
-    private modalService: NgbModal) {
+    private modalService: NgbModal,
+    private router: Router) {
 
    }
   ngOnDestroy(): void {
@@ -40,7 +40,11 @@ export class BookingPageComponent implements OnInit,OnDestroy {
 
   ngOnInit(): void {
     this.sub = this.route.params.subscribe(params => {
-      const id: number = params['id'];
+      let id: number = params['id'];
+
+      if(id < 1 || id > 2) {
+        this.router.navigate(['']);
+      }
 
       this.gameService.getById(id).subscribe({
         next:(game: Game)=>{

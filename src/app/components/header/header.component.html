@@ -10,9 +10,9 @@
       Contacto
     </button>
   </div>
-  <div class="m-2">
-    <button class="btn btn-lg btn-primary" (click)="null">
-      Juegos
+  <div  *ngIf="authService.isLogged()" class="m-2">
+    <button routerLink="bookings" class="btn btn-lg btn-primary" (click)="null">
+      Reservas
     </button>
   </div>
   <div class="m-2">

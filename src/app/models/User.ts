@@ -8,6 +8,6 @@ export  interface User {
   username: string;
   email: string;
   telephone: string;
-  bookings: Set<Booking>;
+  bookings: Booking[];
 
 }
