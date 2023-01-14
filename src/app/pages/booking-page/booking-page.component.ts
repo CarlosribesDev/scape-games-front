@@ -18,8 +18,8 @@ export class BookingPageComponent implements OnInit,OnDestroy {
 
 
   private sub: any;
-  selectedDay: Day | null = null;
-  game?: Game;
+  selectedDay?: Day;
+  game: Game = new Game;
   bgClass: String = '';
   isLooged: boolean = false;
   updateCalendar: Subject<void> = new Subject<void>();
@@ -42,19 +42,19 @@ export class BookingPageComponent implements OnInit,OnDestroy {
     this.sub = this.route.params.subscribe(params => {
       let id: number = params['id'];
 
-      if(id < 1 || id > 2) {
-        this.router.navigate(['']);
-      }
 
       this.gameService.getById(id).subscribe({
         next:(game: Game)=>{
           this.game = game;
           switch(this.game.name){
-            case "La guarida": this.bgClass = 'bg-the-den-image'; break;
-            case "La casa encantada" : this.bgClass = 'bg-hounted-house-image'; break;
+            case "THE_DEN": this.bgClass = 'bg-the-den-image'; break;
+            case "HAUNTED_HOUSE" : this.bgClass = 'bg-hounted-house-image'; break;
             default : this.bgClass = ''
           }
 
+        },
+        error:()=>{
+          this.router.navigate(['']);
         }
       })
 
@@ -77,8 +77,6 @@ export class BookingPageComponent implements OnInit,OnDestroy {
     modalRef.closed.subscribe({
       next:()=>{
           this.updateCalendar.next();
-          console.log("actuliazado");
-
         }
     })
   }

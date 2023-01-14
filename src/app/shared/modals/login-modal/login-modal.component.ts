@@ -41,8 +41,6 @@ export class LoginModalComponent implements OnInit {
   }
 
   close(){
-    console.log("cerrando");
-
     this.modalRef.close();
   }
 
@@ -63,21 +61,41 @@ export class LoginModalComponent implements OnInit {
         this.authService.getCurrentUser().subscribe({
           next:(user: User) => {
               this.authService.setUser(user);
+              console.log("eee");
 
-              if(this.authService.getUserRole() === "ROLE_ADMIN"){
-                this.router.navigate(['/admin']);
-                this.authService.loginStatus.next(true);
-              }
-              else if(this.authService.getUserRole() === "ROLE_USER"){
-                this.router.navigate(['']);
-                this.authService.loginStatus.next(true);
-              }else{
-                this.authService.logOut();
-              }
+              this.authService.getUserRole().subscribe({
+                next:(rolesponse )=>{
+                  const role = rolesponse.role;
+                  localStorage.setItem('role', role);
 
-              this.modalRef.close();
+                  if(role === "ROLE_ADMIN"){
+                    this.router.navigate(['/admin']);
+                    this.authService.loginStatus.next(true);
+                  }
+                  else if(role === "ROLE_USER"){
+                    this.router.navigate(['']);
+                    this.authService.loginStatus.next(true);
+                  }else{
+                    console.log("out");
+                    this.authService.logOut();
+                  }
+                  this.modalRef.close();
+                },
+                error:(ee)=>{
+                  console.log("error");
+                  console.log(ee);
+
+                  this.authService.logOut();
+                  this.modalRef.close();
+                }
+              })
+
+
+
+
           }
         })
+
 
       },
       error: (errorResponse: HttpErrorResponse) => {

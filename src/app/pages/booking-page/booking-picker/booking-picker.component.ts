@@ -119,7 +119,7 @@ export class BookingPickerComponent  implements OnInit{
       return "btn-danger";
     }
 
-    const busyBookings = day.bookings.filter(booking => booking.userId);
+    const busyBookings = day.bookings.filter(booking => booking.user);
 
     if(day.busy){
       return "btn-danger";
@@ -159,12 +159,11 @@ export class BookingPickerComponent  implements OnInit{
       return new Date().getMonth() === this.monthNumber;
   }
 
-  onThreeMonthAftherCurrent(): boolean {
+  onOneMonthAftherCurrent(): boolean {
     let value:number = new Date().getMonth();
 
-    for (let index = 1; index <= 3; index++) {
-      value !== 11 ? value ++ : value = 0;
-    }
+    value !== 11 ? value ++ : value = 0;
+
     return (this.monthNumber) === value;
   }
 }

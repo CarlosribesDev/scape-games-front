@@ -32,7 +32,7 @@
       Registrarse
     </button>
   </div>
-  <div *ngIf="this.authService.getUserRole() === 'ROLE_ADMIN'" class="m-2">
+  <div *ngIf="authService.getRole() === 'ROLE_ADMIN'" class="m-2">
     <button routerLink="/admin" class="btn btn-lg btn-secondary">
       Admin
     </button>

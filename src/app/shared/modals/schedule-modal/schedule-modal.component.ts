@@ -45,11 +45,11 @@ export class ScheduleModalComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const schedule: Schedule = {
-      id: null,
+
+    const schedule =  new Schedule({
       name: this.name.value,
       hours: this.hours
-    }
+    })
 
     this.scheduleService.save(schedule).subscribe({
       next:(schedule: Schedule)=>{
@@ -69,7 +69,6 @@ export class ScheduleModalComponent implements OnInit {
 
   AddHour(): void {
     const newHour = this.hour.value;
-
 
     this.hours.push(newHour);
 

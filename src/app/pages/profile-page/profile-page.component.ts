@@ -1,3 +1,4 @@
+import { BookingService } from './../../service/booking.service';
 import { UserService } from './../../service/user.service';
 import { Booking } from './../../models/Booking';
 import { AuthService } from './../../service/auth.service';
@@ -15,62 +16,55 @@ export class ProfilePageComponent implements OnInit {
   user: User | null = null
 
   constructor(private authService: AuthService,
-              private userService: UserService) { }
+              private userService: UserService,
+              private bookignService: BookingService) { }
 
   ngOnInit(): void {
 
-    this.role = this.authService.getUserRole();
+    this.role = this.authService.getRole();
+
+    this.loadBookings();
+
+  }
+
+  loadBookings() {
     this.bookings = []
-
     if(this.role === 'ROLE_ADMIN'){
-        this.userService.getAllUser().subscribe({
-          next:(users: User[])=>{
-            console.log(users);
+      this.userService.getAllUser().subscribe({
+        next:(users: User[])=>{
+          console.log(users);
 
-              users.forEach(user => {
-                this.bookings = this.bookings.concat(user.bookings);
-                console.log(this.bookings);
+            users.forEach(user => {
+              this.bookings = this.bookings.concat(user.bookings);
+              console.log(this.bookings);
 
-              })
-
-              this.bookings.forEach(booking => {
-                this.translateBooking(booking)
-
-              })
-
-            this.bookings.forEach(booking => {
-              this.addUserName(booking);
             })
-          }
-        })
-
-
-
-
+        }
+      })
     }
     else if(this.role === 'ROLE_USER'){
-        const userBookings: Booking[] | undefined = this.authService.getUser()?.bookings;
-        if(userBookings === undefined){
-          return;
-        }
-        this.user = this.authService.getUser();
-        this.bookings = userBookings;
+      const userId = this.authService.getUser()?.id;
+      if(userId){
+        this.userService.getUserById(userId).subscribe({
+          next:(user: User)=> {
+            this.bookings = user.bookings.sort((a,b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
-        this.bookings.forEach(booking => {
-          this.translateBooking(booking)
-        }
-      )
+
+          }
+
+        })
+      }
+
     }
   }
 
-  translateBooking(booking: Booking){
-    if(!booking.game){
-      return;
-    }
+  isToday(bookingDate: Date):boolean {
+    const today = new Date()
+    const date = new Date(bookingDate);
 
-    let name = booking.game.name;
-    if(name === "THE_DEN") booking.game.name = 'La guarida';
-    if(name === "HAUNTED_HOUSE") booking.game.name = 'La casa encantada';
+    return date.getDate() == today.getDate() &&
+    date.getMonth() == today.getMonth() &&
+    date.getFullYear() == today.getFullYear()
   }
 
   getImageSrc(booking: Booking): string{
@@ -80,25 +74,20 @@ export class ProfilePageComponent implements OnInit {
     }
 
     switch(booking.game.name){
-      case  "La guarida": return'../../../../assets/the-den.jpg';
-      case "La casa encantada" : return '../../../../assets/haunted-house.jpg'; break;
+      case  "THE_DEN": return'../../../../assets/the-den.jpg';
+      case "HAUNTED_HOUSE" : return '../../../../assets/haunted-house.jpg'; break;
       default : return '../../../../assets/image.jpg'
     }
   }
 
-  async addUserName(booking: Booking) {
-
-    const userId = booking.userId;
-    if(!userId){
-      return;
+  deleteBooking(id: number | undefined){
+    if(id){
+      this.bookignService.delete(id).subscribe({
+        next:()=>{
+          this.loadBookings();
+        }
+      })
     }
-
-    this.userService.getUserById(userId).subscribe({
-      next:(user: User)=> {
-        booking.userFullName = `${user.name} ${user.surname}`
-      }
-    })
   }
-
 }
 

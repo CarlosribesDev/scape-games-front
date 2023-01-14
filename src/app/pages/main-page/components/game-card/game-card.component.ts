@@ -20,8 +20,8 @@ export class GameCardComponent implements OnInit {
 
 
     switch(this.game.name){
-      case "La guarida": this.imageSrc = '../../../../assets/the-den.jpg'; break;
-      case "La casa encantada" : this.imageSrc = '../../../../assets/haunted-house.jpg'; break;
+      case "THE_DEN": this.imageSrc = '../../../../assets/the-den.jpg'; break;
+      case "HAUNTED_HOUSE" : this.imageSrc = '../../../../assets/haunted-house.jpg'; break;
       default : this.imageSrc = '../../../../assets/image.jpg'
     }
   }

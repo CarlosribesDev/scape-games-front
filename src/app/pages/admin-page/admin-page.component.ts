@@ -31,8 +31,6 @@ export class AdminPageComponent implements OnInit {
     private scheduleService:ScheduleService,
     private dayService: DayService,
     private cdr: ChangeDetectorRef) {
-
-
      }
 
   ngOnInit(): void {
@@ -52,18 +50,13 @@ export class AdminPageComponent implements OnInit {
     this.selectedSchedule = schedule;
   }
 
-  deleteSchedule(){
-    if(!this.selectedSchedule || !this.selectedSchedule.id){
-      return;
-    }
-
-    this.scheduleService.delete(this.selectedSchedule.id).subscribe({
-      next:()=>{
-        this.getSchedules();
-        this.selectedSchedule = undefined;
-
-      }
-    })
+  deleteSchedule(schedule: Schedule){
+      this.scheduleService.delete(schedule.id).subscribe({
+        next:()=>{
+          this.getSchedules();
+          this.selectedSchedule = undefined;
+        }
+      })
   }
 
   updateWeekDaysSelected(daysList: number[]){
@@ -74,21 +67,18 @@ export class AdminPageComponent implements OnInit {
     this.focusDay = day;
   }
 
-  updateCalendar(){
-    if(!this.selectedSchedule || this.daysSelected.length === 0){
-      return;
-    }
+  updateCalendar(schedule: Schedule){
 
     this.daysSelected.forEach(day => {
-      const bookings: Booking[] = this.selectedSchedule!.hours.map(hour => {
-        return {
-          hour:hour,
+      const bookings: Booking[] = schedule.hours.map(hour => {
 
+        return new Booking({
+          hour:hour,
           date:day.date,
           dayId:day.id,
           isBusy:false,
+        })
 
-        }
       })
 
       day.bookings = bookings;
@@ -104,6 +94,8 @@ export class AdminPageComponent implements OnInit {
         })
       },
       error:(e)=>{
+        console.log(e);
+
         Swal.fire({
           text: 'Error al actualizar horario',
           icon: 'success',

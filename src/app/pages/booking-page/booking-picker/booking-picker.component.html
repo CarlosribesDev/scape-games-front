@@ -6,7 +6,7 @@
         <div class="calendar_title">{{month}}</div>
         <div class="calendar_title ms-3">{{year}}</div>
         <div class="arrow">
-            <p *ngIf="!onThreeMonthAftherCurrent()" (click)="nextMonth()" class="pointer">&#9654;</p>
+            <p *ngIf="!onOneMonthAftherCurrent()" (click)="nextMonth()" class="pointer">&#9654;</p>
         </div>
     </div>
 

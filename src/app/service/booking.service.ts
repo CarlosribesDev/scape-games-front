@@ -20,6 +20,10 @@ export class BookingService {
       return this.http.put<Booking>(`${this.rootURL}/${id}`, userBookingRequest);
     }
 
+    delete(id: number): Observable<void> {
+      return this.http.delete<void>(`${this.rootURL}/${id}`);
+    }
+
     getById(id: number): Observable<Booking>{
       return this.http.get<Booking>(`${this.rootURL}/${id}`);
     }

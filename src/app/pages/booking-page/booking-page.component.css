@@ -2,12 +2,12 @@
   background-image: url('/assets/the-den.jpg');
   background-attachment: fixed;
   background-size: cover;
-  height: 100vh;
+
 }
 
 .bg-hounted-house-image{
   background-image: url('/assets/haunted-house.jpg');
   background-attachment: fixed;
   background-size: cover;
-  height: 100vh;
+
 }

@@ -13,6 +13,8 @@ import { debounceTime } from 'rxjs';
 })
 export class HeaderComponent implements OnInit {
 
+
+
   constructor(
     private userService: UserService,
     public authService: AuthService,
@@ -26,10 +28,9 @@ export class HeaderComponent implements OnInit {
   setLoginSuscription() {
     this.authService.loginStatus.pipe(debounceTime(500)).subscribe({
       next:(logStatus: boolean)=> {
-        if(logStatus){
 
 
-        }
+
       }
     })
   }

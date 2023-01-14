@@ -9,16 +9,16 @@
             </div>
         </div>
     </div>
-    <div class="ms-3">
-        <button class="btn btn-lg btn-primary mb-2" (click)="updateCalendar()">
+    <div *ngIf="selectedSchedule" class="ms-3" >
+        <button [disabled]="daysSelected.length === 0" class="btn btn-lg btn-primary mb-2" (click)="updateCalendar(selectedSchedule)">
             Aplicar horario
         </button>
-        <div *ngIf="selectedSchedule" class="container text-center">
+        <div  class="container text-center">
             <h4>Sesiones</h4>
             <div *ngFor="let hour of selectedSchedule.hours">
                 {{hour}}
             </div>
-            <button class="btn btn-danger mt-2" (click)="deleteSchedule()">Eliminar</button>
+            <button class="btn btn-danger mt-2" (click)="deleteSchedule(selectedSchedule)">Eliminar</button>
         </div>
 
     </div>
